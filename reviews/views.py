@@ -6,28 +6,38 @@ from .forms import ReviewForm
 from django.views import View
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import FormView
+
 from .models import Review
 
-class ReviewView(View):
-    def get(self, request):
-        form = ReviewForm()
+class ReviewView(FormView):
+    form_class = ReviewForm
+    template_name = 'reviews/review.html'
+    success_url = '/thank_you'
+    
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
         
-        return render(request, 'reviews/review.html', {
-            'form': form
-        })
+    # def get(self, request):
+    #     form = ReviewForm()
         
-    def post(self, request):
-        form = ReviewForm(request.POST)
+    #     return render(request, 'reviews/review.html', {
+    #         'form': form
+    #     })
         
-        if form.is_valid():
-            form.save()
+    # def post(self, request):
+    #     form = ReviewForm(request.POST)
+        
+    #     if form.is_valid():
+    #         form.save()
             
-            return HttpResponseRedirect('thank_you')
+    #         return HttpResponseRedirect('thank_you')
         
-        else:
-            return render(request, 'reviews/review.html', {
-                'form': form
-    })
+    #     else:
+    #         return render(request, 'reviews/review.html', {
+    #             'form': form
+    # })
 
 # def review(request):
     
