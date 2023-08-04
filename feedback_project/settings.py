@@ -128,3 +128,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = BASE_DIR / 'uploads'
 MEDIA_URL = '/user-media/'
+
+# Session cookie default setting in django is 2 weeks!
+# SESSION_COOKIE_AGE = 60 * 60 * 24 * 7 # 7 days
